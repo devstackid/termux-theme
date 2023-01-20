@@ -70,8 +70,19 @@ echo "  -u | --uninstall uninstall this program."
 echo "  -s | start       start to change the appearance of termux."
 echo "contact me : zai.project0@gmail.com."
 }
+function theme_remove(){
+        echo ' '
+        printf "Removing..."
+        if [ -f /data/data/com.termux/files/usr/home/termux-theme ]; then
+            rm -rf /data/data/com.termux/files/usr/home/termux-theme
+        fi
+        sleep 3 && exit 1
+}
+
 if ! [ $# -eq 0 ]; then
 	case $1 in
+                -r | --remove ) theme_remove
+                        ;;
 		-i | --install ) install_pack
 			;;
 		-u | --uninstall ) uninstall_pack
