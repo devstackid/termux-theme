@@ -1,0 +1,85 @@
+#!/bin/bash
+r='\e[91m'
+y='\e[93m'
+g='\e[92m'
+w='\e[0m'
+
+function install_pack(){
+	if ! [ -f /data/data/com.termux/files/usr/bin/neofetch ]; then
+		echo ''
+		printf "$y[$w*$y]$w Installing Package...\n$w"
+		echo ''
+		pkg update && pkg upgrade
+		pkg install neofetch -y
+		   if [ $? -eq 1 ]; then
+			echo ''
+			printf "\b$r[$w!$r] $wAn Error While Installing Package !\n$w"
+		        echo ''
+			exit 1
+		   else
+			echo ''
+			printf "$g[$w✓$g]$w Done$w\n"
+			chmod +x /data/data/com.termux/files/home/termux-theme/*
+			exit 1
+		   fi
+	else
+	        printf "$g[$w✓$g]$w The Package Is Installed\n"
+		chmod +x /data/data/com.termux/files/home/termux-theme/*
+		exit 1
+	fi
+}
+function theme_start(){
+        git pull
+        xdg-open https://youtube.com/@devstackid
+	bash /data/data/com.termux/files/home/termux-theme/logo
+if ! [ -f /data/data/com.termux/files/usr/bin/neofetch ]; then
+     printf "$r[$w!$r]$w Your Package Is Not Installed, Please Install It With Command bash theme -i Or ./theme -i \n"
+     echo ''
+     exit 1
+fi
+	if [ -f /data/data/com.termux/files/usr/etc/bash.bashrc ]; then
+	    mv /data/data/com.termux/files/usr/etc/bash.bashrc /data/data/com.termux/files/usr/etc/.old_bash.bashrc
+		if [ -f /data/data/com.termux/files/usr/etc/motd ]; then
+			mv /data/data/com.termux/files/usr/etc/motd /data/data/com.termux/files/usr/etc/.motd
+		fi
+	fi
+	cp -f /data/data/com.termux/files/home/termux-theme/.distro-x /data/data/com.termux/files/usr/etc/.distro
+	cp -f /data/data/com.termux/files/home/termux-theme/.bash.bashrc  /data/data/com.termux/files/usr/etc/bash.bashrc
+	sleep 2
+	printf "$g[$w✓$g]$w Congratulation, Your Termux Theme Has Been Changed\n"
+	termux-reload-settings
+	exit 1
+}
+function uninstall_pack(){
+	echo ''
+	printf "Uninstalling..."
+	if [ -f /data/data/com.termux/files/usr/etc/.old_bash.bashrc ]; then
+	   rm -rf /data/data/com.termux/files/usr/etc/bash.bashrc
+           mv /data/data/com.termux/files/usr/etc/.old_bash.bashrc /data/data/com.termux/files/usr/etc/bash.bashrc
+	    if [ -f /data/data/com.termux/files/usr/etc/.motd ]; then
+		mv /data/data/com.termux/files/usr/etc/.motd /data/data/com.termux/files/usr/etc/motd
+	    fi
+	fi
+	sleep 3 && exit 1
+}
+function help_display(){
+echo "Usage   : command [ options ]"
+echo "change the appearance of your termux easily and quickly."
+echo "  -i | --install   install the packages needed by this tool."
+echo "  -u | --uninstall uninstall this program."
+echo "  -s | start       start to change the appearance of termux."
+echo "contact me : zai.project0@gmail.com."
+}
+if ! [ $# -eq 0 ]; then
+	case $1 in
+		-i | --install ) install_pack
+			;;
+		-u | --uninstall ) uninstall_pack
+			;;
+		-s | start ) theme_start
+			;;
+		-h | --help ) help_display
+			;;
+		    * ) help_display
+	esac
+fi
