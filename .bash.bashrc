@@ -8,7 +8,7 @@ alias clear='clear && neofetch --ascii_distro $random'
 random=$(shuf -n1 /data/data/com.termux/files/usr/etc/.distro)
 clear
 PS1='
-\[\e[0;93m\]\w\[\e[0m\] [ \[\e[0;91m\]zai\[\e[0m\].\[\e[91m\]project\[\e[93m\]0\[\e[0m\] ]: '
+\[\e[0;93m\]\w\[\e[0m\] [ \[\e[0;91m\]Dev \[\e[0m\]\[\e[91m\]ID\[\e[93m\]\[\e[0m\] ]: '
 echo ""
 
 PROMPT_DIRTRIM=2
