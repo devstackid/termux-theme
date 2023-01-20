@@ -65,16 +65,17 @@ function uninstall_pack(){
 function help_display(){
 echo "Usage   : command [ options ]"
 echo "change the appearance of your termux easily and quickly."
+echo "  -r | --remove    remove the termux-theme tool."
 echo "  -i | --install   install the packages needed by this tool."
 echo "  -u | --uninstall uninstall this program."
 echo "  -s | start       start to change the appearance of termux."
-echo "contact me : zai.project0@gmail.com."
+echo "Youtube : https://youtube.com/@devstackid"
 }
 function theme_remove(){
         echo ' '
         printf "Removing..."
-        if [ -f /data/data/com.termux/files/usr/home/termux-theme ]; then
-            rm -rf /data/data/com.termux/files/usr/home/termux-theme
+        if [ -d /data/data/com.termux/files/usr/home/termux-theme ]; then
+           rm -rf /data/data/com.termux/files/usr/home/termux-theme
         fi
         sleep 3 && exit 1
 }
